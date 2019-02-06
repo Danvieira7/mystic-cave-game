@@ -1,19 +1,57 @@
 body{
+    color: rgb(111, 108, 108);
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-color:rgb(45, 44, 44);
+    
+}
+h1{
+    /* background-color: black; */
+    font-family: 'Press Start 2P', cursive;
+}
+
+#boss{
+    height: 200px;
+    width: 200px;
+    animation: move 5s alternate infinite;
+}
+#ball{
+    bottom: 0;
+    align-items: baseline;    
+    width: 60px;
+    height: 80px;
+    position: relative;
+    left: 0px;
+    /* border-radius: 50%; */
+    /* border: solid black 2px; */
+    top: 410px;
+    /* background-color: white; */
+}
+.rock{
+    position: relative;
+    border-radius: 50%;
+    border: solid black 2px;
+    height: 25px;
+    width: 25px;
+    background-color: rgb(152, 152, 152);
+}
+
+@keyframes move{
+    0%{
+        trasnsform: translate(0)
+    }
+    
+    50%{
+        transform: translate(800px)
+    }
+}
+#screen{
+    border: black solid 2px;
+    width: 1000px;
+    height: 500px;
+    border-radius:5px; 
+    background-image: url("http://pixelartmaker.com/art/0c48ac01693bef3.png");
 }
 
 
-#container {
-    width: 700px;
-    height: 400px;
-    position: relative;
-    background: yellow;
-  }
-  #animate {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    background: red;
-  }
