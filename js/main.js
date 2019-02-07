@@ -1,13 +1,24 @@
 /*-----------------Start Button-------------------*/
 var start = document.getElementById('start');
 start.addEventListener('click', startGame);
+var game = null
 
 
 function startGame(){
    var myLoop = setInterval(function() {
       RockSimulator();
-   }, 2000);
+   }, 3000);
+   if(game === 'over'){
+      clearInterval(myLoop)
+   }
+   
+  
 }
+function gameOver() {
+   clearInterval(myLoop)
+   alert('game over')
+}
+ 
 /*-----------------PLayer commands-------------------*/ 
 var ball = document.querySelector('#ball');
 ball.style.top = '420px'
@@ -85,10 +96,20 @@ function RockSimulator() {
    var id = setInterval(frame, 5);
    
    function frame() {
-      if (pos == 420) {
+      if (pos == 430) {
+         newRock.style.display = 'none'
+         newRock2.style.display = 'none'
+         newRock3.style.display = 'none'
+         newRock4.style.display = 'none'
+         newRock5.style.display = 'none'
          clearInterval(id);
       } else {
          pos++; 
+         newRock.style.display = ''
+         newRock2.style.display = ''
+         newRock3.style.display = ''
+         newRock4.style.display = ''
+         newRock5.style.display = ''
          newRock.style.top = pos + 'px';  
          newRock2.style.top = pos + 'px';
          newRock3.style.top = pos + 'px';
@@ -103,48 +124,89 @@ var hit = setInterval(function(){
    if((newRock.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock.style.left))) {
-      console.log('hello');
+      console.log('hello')
+      newRock.style.display = 'hidden'
+      console.log(newRock.style.display)
+      // clearInterval(hit)
+      game = 'over'
+      // clearInterval(myLoop)
+      // gameOver()
+      // alert('rock 1 hit')
    }
    if((newRock2.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock2.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock2.style.left))) {
-      console.log('hello2');
+      console.log('hello2')
+      newRock2.style.display = 'hidden'
+      console.log(newRock2.style.display)
+      // clearInterval(hit)
+      game = 'over'
+      // clearInterval(myLoop)
+      // gameOver()
+      // alert('rock 2 hit')
    }
-
+   
    if((newRock3.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock3.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock3.style.left))) {
-      console.log('hello3');
+      console.log('hello3')
+      newRock3.style.display = 'hidden'
+      console.log(newRock3.style.display)
+      // clearInterval(hit)
+      game = 'over'
+      
+      // clearInterval(myLoop)
+      // gameOver()
+      // alert('rock 3 hit')
    }
-
+   
    if((newRock4.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock4.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock4.style.left))) {
-      console.log('hello4');
+      console.log('hello4')
+      newRock4.style.display = 'hidden'
+      console.log(newRock4.style.display)
+      // clearInterval(hit)
+      game = 'over'
+      
+      // clearInterval(myLoop)
+      // gameOver()
+      // alert('rock 4  hit')
    }
-
+   
    if((newRock5.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock5.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock5.style.left))) {
-      console.log('hello5');
+      console.log('hello5')
+      newRock5.style.display = 'hidden'
+      console.log(newRock5.style.display)
+      // clearInterval(hit)
+      game = 'over'
+
+      // clearInterval(myLoop)
+      // gameOver()
+      // alert('rock 5 hit')
    }
 }, 1);
 
-function goneRocks (){
-   if(newRock.style.top >= 350){
-      newRock.remove();
-   }
-   if(newRock2.style.top >= 350){
-      newRock2.remove();
-   }
-   if(newRock3.style.top >= 350){
-      newRock3.remove();
-   }
-   if(newRock.style.top >= 350){
-      newRock.remove();
-   }
-   if(newRock2.style.top = 350){
-      newRock2.remove();
-   }
-}
-goneRocks();
+// function goneRocks (){
+//    if(newRock.style.top >= 400){
+//       console.log(newRock.style.top);
+//       newRock.remove();
+//    }
+//    if(newRock2.style.top >= 400){
+//       newRock2.remove();
+//    }
+//    if(newRock3.style.top >= 400){
+//       newRock3.remove();
+//    }
+//    if(newRock.style.top >= 400){
+//       newRock.remove();
+//    }
+//    if(newRock2.style.top === 400){
+//       newRock2.remove();
+//    }
+// }
+
+
+// goneRocks();
