@@ -1,26 +1,66 @@
-/*-----------------Start Button-------------------*/
-var start = document.getElementById('start');
-start.addEventListener('click', startGame);
-var game = null
+/*-----------------INIT-------------------*/
 
+/*-----------------CONST-------------------*/
+const bannerOut = document.getElementById('startBanner');
+var song = new Audio(['./mp3/march.mp3']);
+var game = null
+var ball = document.querySelector('#ball');
+var score = 0;
+var sec = 0
+// var score = 0
+
+/*-----------------Start Button-------------------*/
+document.addEventListener('keydown', function(evt){
+   switch(evt.keyCode){
+      case 13:
+      startGame();
+      break;
+   }
+});
 
 function startGame(){
+   score = 0;
    var myLoop = setInterval(function() {
       RockSimulator();
    }, 3000);
+   
+   var time = setInterval( function(){
+      document.getElementById("seconds").innerHTML=pad(++sec%60);
+      document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
+      if(sec%5 === 0){score += 10;}
+   }, 1000);
+   
    if(game === 'over'){
+      sec = 0
+      score = 0
+      clearInterval(time)
       clearInterval(myLoop)
    }
+   //DOM reset 
+   bannerOut.style.display = 'none';
+   ball.style.display = 'block';
+   song.play();  
+   timer();
+}
+
+
+function gameOver() {   
    
-  
+   ball.style.display = 'none';
+   bannerOut.style.display = 'block';
+   bannerOut.innerHTML = `game over <br> score is: ${score} <br> Press Enter to play again`;
+   bannerOut.style.fontFamily = '"Press Start 2P", cursive';
+   
+   
+   switch(evt.keyCode){
+      case 13:
+      startGame();
+      break;
+   }
+   
 }
-function gameOver() {
-   clearInterval(myLoop)
-   alert('game over')
-}
- 
+
 /*-----------------PLayer commands-------------------*/ 
-var ball = document.querySelector('#ball');
 ball.style.top = '420px'
 const screen = document.getElementById('screen');
 
@@ -32,6 +72,7 @@ function moveLeft(){
       ball.style.left = parseInt(ball.style.left) -   20+'px';
    }
 }
+
 function moveRight(){
    if (typeof ball.style.left !== 'number' && ball.style.left === '') {
       ball.style.left = 0;
@@ -46,15 +87,9 @@ function move(evt){
       case 37:
       moveLeft();
       break;
-      // case 38:
-      // moveUp();
-      // break;
       case 39:
       moveRight();
       break;
-      // case 40:
-      // moveDown();
-      // break;
    }
 }
 document.addEventListener('keydown', move);
@@ -73,19 +108,19 @@ function RockSimulator() {
    newRock3.setAttribute("class", "rock");
    newRock4.setAttribute("class", "rock");
    newRock5.setAttribute("class", "rock");
-
+   
    newRock.style.top = '10px'
    newRock2.style.top = '10px'
    newRock3.style.top = '10px'
    newRock4.style.top = '10px'
    newRock5.style.top = '10px'
-
+   
    screen.appendChild(newRock);
    screen.appendChild(newRock2);
    screen.appendChild(newRock3);
    screen.appendChild(newRock4);
    screen.appendChild(newRock5);
-
+   
    newRock.style.left = `${Math.floor(Math.random() * 40) * 20}px`
    newRock2.style.left = `${Math.floor(Math.random() * 40) * 20}px`
    newRock3.style.left = `${Math.floor(Math.random() * 40) * 20}px`
@@ -120,93 +155,63 @@ function RockSimulator() {
 }
 
 var hit = setInterval(function(){
-
+   
    if((newRock.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock.style.left))) {
-      console.log('hello')
+      
       newRock.style.display = 'hidden'
-      console.log(newRock.style.display)
-      // clearInterval(hit)
-      game = 'over'
-      // clearInterval(myLoop)
-      // gameOver()
-      // alert('rock 1 hit')
-   }
-   if((newRock2.style.top === '380px') 
+      game = 'over';
+      gameOver();
+   }else if((newRock2.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock2.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock2.style.left))) {
-      console.log('hello2')
+      // ball.remove();
       newRock2.style.display = 'hidden'
-      console.log(newRock2.style.display)
-      // clearInterval(hit)
-      game = 'over'
-      // clearInterval(myLoop)
-      // gameOver()
-      // alert('rock 2 hit')
-   }
-   
-   if((newRock3.style.top === '380px') 
+      game = 'over';
+      gameOver();
+   }else if((newRock3.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock3.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock3.style.left))) {
-      console.log('hello3')
+      // ball.remove();
       newRock3.style.display = 'hidden'
-      console.log(newRock3.style.display)
-      // clearInterval(hit)
-      game = 'over'
-      
-      // clearInterval(myLoop)
-      // gameOver()
-      // alert('rock 3 hit')
-   }
-   
-   if((newRock4.style.top === '380px') 
+      game = 'over';
+      gameOver();
+   }else if((newRock4.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock4.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock4.style.left))) {
-      console.log('hello4')
+      // ball.remove();
       newRock4.style.display = 'hidden'
-      console.log(newRock4.style.display)
-      // clearInterval(hit)
-      game = 'over'
-      
-      // clearInterval(myLoop)
-      // gameOver()
-      // alert('rock 4  hit')
-   }
-   
-   if((newRock5.style.top === '380px') 
+      game = 'over';
+      gameOver();
+   }else if((newRock5.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock5.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock5.style.left))) {
-      console.log('hello5')
+      // ball.remove();
       newRock5.style.display = 'hidden'
-      console.log(newRock5.style.display)
-      // clearInterval(hit)
-      game = 'over'
-
-      // clearInterval(myLoop)
-      // gameOver()
-      // alert('rock 5 hit')
+      game = 'over';
+      gameOver();
    }
 }, 1);
+/*-----------------Timer-------------------*/
 
-// function goneRocks (){
-//    if(newRock.style.top >= 400){
-//       console.log(newRock.style.top);
-//       newRock.remove();
+function pad ( val ) { return val > 9 ? val : "0" + val; }
+// var timer = function(){
+//    if(startGame){
+//       var time = setInterval( function(){
+//          document.getElementById("seconds").innerHTML=pad(++sec%60);
+//          document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
+//          if(sec%5 === 0){score += 10;}
+//       }, 1000);
 //    }
-//    if(newRock2.style.top >= 400){
-//       newRock2.remove();
-//    }
-//    if(newRock3.style.top >= 400){
-//       newRock3.remove();
-//    }
-//    if(newRock.style.top >= 400){
-//       newRock.remove();
-//    }
-//    if(newRock2.style.top === 400){
-//       newRock2.remove();
-//    }
-// }
+//    // else if(gameOver){
+//    //    // clearInterval(time)
+//    //    sec = 0;
+//    //    score = 0
+//    //    document.getElementById("seconds").innerHTML=pad(++sec%60);
+//    //    document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
+//    // }
+// } 
 
 
-// goneRocks();
+
