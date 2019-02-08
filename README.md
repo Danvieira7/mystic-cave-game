@@ -24,7 +24,7 @@ Star Ride is a game inspired by the Star Wars franchise, where you will be the p
 
 
 ## Getting Started:
-- Click [here](https://danvieira7.github.io/mystic-cave-game/index.html)  to play it! 
+- Click [here](https://danvieira7.github.io/star-ride/index.html)  to play it! 
 
 
 ## Next Steps: 
