@@ -1,13 +1,12 @@
 /*-----------------VARIABLES-------------------*/
-
-const bannerOut = document.getElementById('startBanner');//
+const bannerOut = document.getElementById('startBanner');
 var song = new Audio(['./mp3/march.mp3']);
 var game = null
 var ball = document.querySelector('#ball');
 var score = 0;
 var sec = 0
 /*-----------------EVENT LISTENER-------------------*/
-
+//event listener to start the game
 document.addEventListener('keydown', function(evt){
    switch(evt.keyCode){
       case 13:
@@ -15,10 +14,10 @@ document.addEventListener('keydown', function(evt){
       break;
    }
 });
-
+//event listener that controls the spaceship 
 document.addEventListener('keydown', move);
-
 /*-----------------INIT-------------------*/
+//game starter function
 function startGame(){
    score = 0;
    var myLoop = setInterval(function() {
@@ -30,7 +29,7 @@ function startGame(){
       document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
       if(sec%5 === 0){score += 10;}
    }, 1000);
-   
+   //handles resets for game parameters
    if(game === 'over'){
       sec = 0
       score = 0
@@ -45,14 +44,11 @@ function startGame(){
    timer();
 }
 /*-----------------FUNCTIONS -------------------*/
-
+//ajustment for timer 
 function pad ( val ) { return val > 9 ? val : "0" + val; }
-
 /*-----------------PLAYER COMANDS-------------------*/ 
-
-ball.style.top = '420px'
 const screen = document.getElementById('screen');
-
+//function that moves the spaceship to the left
 function moveLeft(){
    if (typeof ball.style.left !== 'number' && ball.style.left === '') {
       ball.style.left = 0;
@@ -61,7 +57,7 @@ function moveLeft(){
       ball.style.left = parseInt(ball.style.left) -   20+'px';
    }
 }
-
+//function that moves the spaceship to the right
 function moveRight(){
    if (typeof ball.style.left !== 'number' && ball.style.left === '') {
       ball.style.left = 0;
@@ -70,7 +66,7 @@ function moveRight(){
       ball.style.left = parseInt(ball.style.left) +   20+'px'
    }
 }
-
+//function move checks commands from keypad and call the functions on line 52 and 61
 function move(evt){
    switch(evt.keyCode){
       case 37:
@@ -81,9 +77,9 @@ function move(evt){
       break;
    }
 }
-
-
 /*-----------------Falling Rocks-------------------*/
+//TEMPORARY CODE FROM LINE 83 TO 139
+//It creates all the rocks falling from the top.
 var newRock = document.createElement('div')
 var newRock2 = document.createElement('div')
 var newRock3 = document.createElement('div')
@@ -142,12 +138,12 @@ function RockSimulator() {
    }
 }
 /*-----------------GAME OVER-------------------*/
+//handles losing losing condition
 function gameOver() {   
-   
    song.pause();
    ball.style.display = 'none';
    bannerOut.style.display = 'block';
-   bannerOut.innerHTML = `game over <br> score is: ${score} <br></br> Press Enter to play </br>again`;
+   bannerOut.innerHTML = `Game Over <br><br> You Scored ${score}pts<br></br> Press Enter To Play </br>Again`;
    bannerOut.style.fontFamily = '"Press Start 2P", cursive';
    bannerOut.style.textAlign = 'center';
    bannerOut.style.paddingTop = '30px';
@@ -159,12 +155,13 @@ function gameOver() {
       break;
    }
 }
+//this functiona creates the range of contact between spaceship and rock
+//and defines if game is over
 var hit = setInterval(function(){
    
    if((newRock.style.top === '380px') 
    && (parseInt(ball.style.left) +40 >= parseInt(newRock.style.left))
    && (parseInt(ball.style.left) -20 <= parseInt(newRock.style.left))) {
-      
       game = 'over';
       newRock.style.display = 'hidden'
       gameOver();
